@@ -6,7 +6,12 @@ import model.Summoner;
 import persistence.SummonerDAO;
 
 public class SummonerDAOClusterPoint implements SummonerDAO {
+	private DataSource data;
 
+	public SummonerDAOClusterPoint() {
+		this.data = new DataSource();
+	}
+	
 	public boolean insert(Summoner summoner) {
 		// TODO Auto-generated method stub
 		return false;

@@ -1,5 +1,7 @@
 package model.facade;
 
+import java.util.List;
+
 import model.Summoner;
 import persistence.clusterPoint.SummonerDAOClusterPoint;
 
@@ -21,6 +23,10 @@ public class FacadeSummoner {
 	
 	public boolean deleteAll() {
 		return this.dao.deleteAll();
+	}
+	
+	public List<Summoner> findAll() {
+		return this.dao.findAll();
 	}
 	
 	public Summoner findSummoner(String username){

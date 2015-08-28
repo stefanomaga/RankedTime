@@ -6,7 +6,12 @@ import model.Champion;
 import persistence.ChampionDAO;
 
 public class ChampionDAOClusterPoint implements ChampionDAO {
+	private DataSource data;
 
+	public ChampionDAOClusterPoint() {
+		this.data = new DataSource();
+	}
+	
 	public boolean insert(Champion champion) {
 		// TODO Auto-generated method stub
 		return false;
