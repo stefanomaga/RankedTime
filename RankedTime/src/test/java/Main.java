@@ -167,6 +167,30 @@ public class Main {
 			}
 		}
 		
+		for (Champion favouriteChampion : favouriteChampions) {
+			List<Champion> goodWith = favouriteChampion.getGoodWith();
+			List<Champion> goodAgainst = favouriteChampion.getGoodAgainst();
+			List<Champion> weakAgainst = favouriteChampion.getWeakAgainst();
+
+			for (Champion alliedChampion : alliedChampions) {
+				if(goodWith.contains(alliedChampion)) {
+					favouriteChampion.setValue(favouriteChampion.getValue() + 1);
+				}
+			}
+			
+			for (Champion enemyChampion : enemyChampions) {
+				if(goodAgainst.contains(enemyChampion)) {
+					favouriteChampion.setValue(favouriteChampion.getValue() + 1);
+				}
+			}
+			
+			for (Champion enemyChampion : enemyChampions) {
+				if(weakAgainst.contains(enemyChampion)) {
+					favouriteChampion.setValue(favouriteChampion.getValue() - 1);
+				}
+			}
+		}
+		
 		int max = 0;
 		for (Champion champion : favouriteChampions) {
 			int value = champion.getValue();

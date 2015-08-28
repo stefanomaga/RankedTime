@@ -1,8 +1,20 @@
 package persistence.clusterPoint;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import com.clusterpoint.api.CPSConnection;
+import com.clusterpoint.api.request.CPSSearchRequest;
+import com.clusterpoint.api.response.CPSSearchResponse;
+
+import model.Champion;
 import model.Summoner;
+import model.facade.FacadeChampion;
 import persistence.SummonerDAO;
 
 public class SummonerDAOClusterPoint implements SummonerDAO {
@@ -28,8 +40,57 @@ public class SummonerDAOClusterPoint implements SummonerDAO {
 	}
 
 	public Summoner findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean esito = false;
+
+		Summoner summoner = new Summoner();
+		FacadeChampion facadeChampion = new FacadeChampion();
+
+		CPSConnection connessione;
+
+		try {
+			connessione = this.data.getConnection("Summoners");
+
+			String query = "<id>" + username + "</id>";
+
+			// return documents starting with the first one - offset 0
+			int offset = 0;
+			// return not more than 5 documents
+			int docs = 5;
+			// return these fields from the documents
+			Map<String, String> list = new HashMap<String, String>();
+			list.put("id", "yes");
+
+			CPSSearchRequest search_req = new CPSSearchRequest(query, offset, docs, list);
+			CPSSearchResponse search_resp = (CPSSearchResponse) connessione.sendRequest(search_req);
+
+			if (search_resp.getHits() > 0) {
+				List<Element> documents = search_resp.getDocuments();
+
+				for (Element element : documents) {
+					NodeList attributes = element.getChildNodes();
+					String id = attributes.item(0).getTextContent();
+					String password = attributes.item(1).getTextContent();
+					List<Champion> favouriteChampions = new ArrayList<Champion>();
+
+					NodeList champions = attributes.item(2).getChildNodes();
+					
+					for (int i = 0; i < champions.getLength(); i++) {
+						String championName = champions.item(i).getTextContent();
+						Champion champion = facadeChampion.findChampion(championName);	
+						favouriteChampions.add(champion);
+					}
+					
+					summoner = new Summoner(id, password, favouriteChampions);
+					esito = true;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		System.out.println("Esito Recupero Summoner: " + esito);
+		return summoner;
+
+
 	}
 
 	public List<Summoner> findAll() {

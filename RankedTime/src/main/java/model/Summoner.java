@@ -8,6 +8,10 @@ public class Summoner {
 	private String password;
 	private List<Champion> champions;
 
+	public Summoner() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Summoner(String username, String password, List<Champion> champions) {
 		super();
 		this.username = username;

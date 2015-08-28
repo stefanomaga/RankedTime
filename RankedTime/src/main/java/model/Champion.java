@@ -6,20 +6,33 @@ public class Champion {
 
 	private String name;
 	private String role;
-	
+
 	private List<Champion> goodAgainst;
 	private List<Champion> weakAgainst;
 	private List<Champion> goodWith;
-	
+
 	private int value;
-	
+
+	public Champion() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Champion(String name, String role) {
 		super();
 		this.name = name;
 		this.role = role;
 		this.value = 0;
 	}
-	
+
+	public Champion(String name, List<Champion> goodAgainst, List<Champion> weakAgainst, List<Champion> goodWith) {
+		super();
+		this.name = name;
+		this.goodAgainst = goodAgainst;
+		this.weakAgainst = weakAgainst;
+		this.goodWith = goodWith;
+		this.value = 0;
+	}
+
 	public Champion(String name, String role, List<Champion> goodAgainst, List<Champion> weakAgainst,
 			List<Champion> goodWith) {
 		super();
@@ -30,16 +43,19 @@ public class Champion {
 		this.goodWith = goodWith;
 		this.value = 0;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getRole() {
 		return role;
 	}
+
 	public void setRole(String role) {
 		this.role = role;
 	}
@@ -75,5 +91,5 @@ public class Champion {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	
+
 }
