@@ -23,7 +23,7 @@ public class SummonerDAOClusterPoint implements SummonerDAO {
 	public SummonerDAOClusterPoint() {
 		this.data = new DataSource();
 	}
-	
+
 	public boolean insert(Summoner summoner) {
 		// TODO Auto-generated method stub
 		return false;
@@ -40,8 +40,7 @@ public class SummonerDAOClusterPoint implements SummonerDAO {
 	}
 
 	public Summoner findByUsername(String username) {
-		boolean esito = false;
-
+		
 		Summoner summoner = new Summoner();
 		FacadeChampion facadeChampion = new FacadeChampion();
 
@@ -73,23 +72,23 @@ public class SummonerDAOClusterPoint implements SummonerDAO {
 					List<Champion> favouriteChampions = new ArrayList<Champion>();
 
 					NodeList champions = attributes.item(2).getChildNodes();
-					
-					for (int i = 0; i < champions.getLength(); i++) {
-						String championName = champions.item(i).getTextContent();
-						Champion champion = facadeChampion.findChampion(championName);	
+
+					for (int i = 0; i < champions.getLength() -1; i++) {
+						NodeList championNode = champions.item(i).getChildNodes();
+						String championName = championNode.item(0).getTextContent();
+						String championRole = championNode.item(1).getTextContent();
+						Champion champion = facadeChampion.findChampion(championName);
+						champion.setRole(championRole);
 						favouriteChampions.add(champion);
 					}
-					
+
 					summoner = new Summoner(id, password, favouriteChampions);
-					esito = true;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
-		System.out.println("Esito Recupero Summoner: " + esito);
 		return summoner;
-
 
 	}
 

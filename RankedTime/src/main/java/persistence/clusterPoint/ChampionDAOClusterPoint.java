@@ -13,7 +13,6 @@ import com.clusterpoint.api.request.CPSSearchRequest;
 import com.clusterpoint.api.response.CPSSearchResponse;
 
 import model.Champion;
-import model.facade.FacadeChampion;
 import persistence.ChampionDAO;
 
 public class ChampionDAOClusterPoint implements ChampionDAO {
@@ -22,7 +21,7 @@ public class ChampionDAOClusterPoint implements ChampionDAO {
 	public ChampionDAOClusterPoint() {
 		this.data = new DataSource();
 	}
-	
+
 	public boolean insert(Champion champion) {
 		// TODO Auto-generated method stub
 		return false;
@@ -39,11 +38,10 @@ public class ChampionDAOClusterPoint implements ChampionDAO {
 	}
 
 	public Champion findByName(String name) {
-		boolean esito = false;
+
+		System.out.println(name);
 
 		Champion champion = new Champion();
-		FacadeChampion facadeChampion = new FacadeChampion();
-
 		CPSConnection connessione;
 
 		try {
@@ -72,36 +70,31 @@ public class ChampionDAOClusterPoint implements ChampionDAO {
 					NodeList weakAgainstNodes = attributes.item(2).getChildNodes();
 					NodeList goodWithNodes = attributes.item(3).getChildNodes();
 
-					List<Champion> goodAgainst = new ArrayList<Champion>();
-					List<Champion> weakAgainst = new ArrayList<Champion>();
-					List<Champion> goodWith = new ArrayList<Champion>();
-					
+					List<String> goodAgainst = new ArrayList<String>();
+					List<String> weakAgainst = new ArrayList<String>();
+					List<String> goodWith = new ArrayList<String>();
+
 					for (int i = 0; i < goodAgainstNodes.getLength(); i++) {
 						String championName = goodAgainstNodes.item(i).getTextContent();
-						Champion champ = facadeChampion.findChampion(championName);	
-						goodAgainst.add(champ);
+						goodAgainst.add(championName);
 					}
-					
+
 					for (int i = 0; i < weakAgainstNodes.getLength(); i++) {
 						String championName = weakAgainstNodes.item(i).getTextContent();
-						Champion champ = facadeChampion.findChampion(championName);	
-						weakAgainst.add(champ);
+						weakAgainst.add(championName);
 					}
-					
+
 					for (int i = 0; i < goodWithNodes.getLength(); i++) {
 						String championName = goodWithNodes.item(i).getTextContent();
-						Champion champ = facadeChampion.findChampion(championName);	
-						goodWith.add(champ);
+						goodWith.add(championName);
 					}
-					
+
 					champion = new Champion(id, goodAgainst, weakAgainst, goodWith);
-					esito = true;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
-		System.out.println("Esito Recupero Summoner: " + esito);
 		return champion;
 	}
 

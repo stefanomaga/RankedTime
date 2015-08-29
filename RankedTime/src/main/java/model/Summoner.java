@@ -43,5 +43,10 @@ public class Summoner {
 		this.champions = champions;
 	}
 
+	@Override
+	public String toString() {
+		return "Summoner [username=" + username + ", password=" + password + ", champions=" + champions + "]";
+	}
+
 	
 }

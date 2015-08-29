@@ -7,9 +7,9 @@ public class Champion {
 	private String name;
 	private String role;
 
-	private List<Champion> goodAgainst;
-	private List<Champion> weakAgainst;
-	private List<Champion> goodWith;
+	private List<String> goodAgainst;
+	private List<String> weakAgainst;
+	private List<String> goodWith;
 
 	private int value;
 
@@ -24,7 +24,7 @@ public class Champion {
 		this.value = 0;
 	}
 
-	public Champion(String name, List<Champion> goodAgainst, List<Champion> weakAgainst, List<Champion> goodWith) {
+	public Champion(String name, List<String> goodAgainst, List<String> weakAgainst, List<String> goodWith) {
 		super();
 		this.name = name;
 		this.goodAgainst = goodAgainst;
@@ -33,8 +33,8 @@ public class Champion {
 		this.value = 0;
 	}
 
-	public Champion(String name, String role, List<Champion> goodAgainst, List<Champion> weakAgainst,
-			List<Champion> goodWith) {
+	public Champion(String name, String role, List<String> goodAgainst, List<String> weakAgainst,
+			List<String> goodWith) {
 		super();
 		this.name = name;
 		this.role = role;
@@ -60,27 +60,27 @@ public class Champion {
 		this.role = role;
 	}
 
-	public List<Champion> getGoodAgainst() {
+	public List<String> getGoodAgainst() {
 		return goodAgainst;
 	}
 
-	public void setGoodAgainst(List<Champion> goodAgainst) {
+	public void setGoodAgainst(List<String> goodAgainst) {
 		this.goodAgainst = goodAgainst;
 	}
 
-	public List<Champion> getWeakAgainst() {
+	public List<String> getWeakAgainst() {
 		return weakAgainst;
 	}
 
-	public void setWeakAgainst(List<Champion> weakAgainst) {
+	public void setWeakAgainst(List<String> weakAgainst) {
 		this.weakAgainst = weakAgainst;
 	}
 
-	public List<Champion> getGoodWith() {
+	public List<String> getGoodWith() {
 		return goodWith;
 	}
 
-	public void setGoodWith(List<Champion> goodWith) {
+	public void setGoodWith(List<String> goodWith) {
 		this.goodWith = goodWith;
 	}
 
@@ -90,6 +90,12 @@ public class Champion {
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "Champion [name=" + name + ", role=" + role + ", goodAgainst=" + goodAgainst + ", weakAgainst="
+				+ weakAgainst + ", goodWith=" + goodWith + ", value=" + value + "]";
 	}
 
 }
